@@ -21,6 +21,11 @@ function Users() {
     })
   }
 
+  const handleCreate = () => {
+    setId(-1);
+    setOpen(true);
+  }
+
   const onClose = () => {
     setOpen(false);
     setId(-1);
@@ -29,7 +34,7 @@ function Users() {
   return (
     <>
       <Container maxWidth="lg" sx={{ marginTop: "50px", minWidth: "800px" }}>
-        <PageHeader createUser={() => setOpen(true)} />
+        <PageHeader createUser={handleCreate} />
         <Grid
           container
           direction="row"
