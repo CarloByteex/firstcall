@@ -7,7 +7,7 @@ function PageHeader(props: any) {
   return (
     <Grid container justifyContent="space-between" alignItems="center">
       <Grid item>
-        <Typography variant="h3" sx={{ color: 'white' }} component="h3" gutterBottom>
+        <Typography variant="h3" component="h3" gutterBottom>
           User List
         </Typography>
       </Grid>
