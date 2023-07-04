@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink, DefaultOptions } from "@apollo/client";
+
+import Users from "./components/UserList";
+
+import "./App.css";
 
 function App() {
+
+  const httpLink = createHttpLink({
+    uri: process.env.REACT_APP_SERVER_URI ? `${process.env.REACT_APP_SERVER_URI}/graphql` : "http://localhost:8000/graphql"
+  })
+
+  const defaultOptions: DefaultOptions = {
+    watchQuery: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'ignore',
+    },
+    query: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'all',
+    },
+  }
+
+  const client = new ApolloClient({
+    link: httpLink,
+    cache: new InMemoryCache(),
+    defaultOptions: defaultOptions,
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApolloProvider client={client}>
+      <Users />
+    </ApolloProvider>
   );
 }
-
 export default App;
